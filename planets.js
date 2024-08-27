@@ -11,4 +11,10 @@ export default [
     degr: 23,
     hours: 52,
   },
+  {
+    id: "abc113",
+    planet: "Sun",
+    degr: 13,
+    hours: 57,
+  },
 ];

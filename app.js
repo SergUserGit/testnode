@@ -1,26 +1,11 @@
 import express from "express";
 
-import planets from "./planets.js";
+import planetRouter from "./routes/api/planets-router.js";
+import cors from "cors";
 
 const app = express();
+const corsMidl = cors();
+app.use(corsMidl);
 
-app.get("/planets", getArrayPlanet);
-
-/*app.get("/", routOne);
-app.get("/astrology", routTwo);*/
-
+app.use("/api/planets", planetRouter);
 app.listen(3000, () => console.log("Server is runningn"));
-
-function getArrayPlanet(req, res) {
-  res.send(planets);
-}
-
-/*function routOne(request, response) {
-  response.send("<h2>My page</h2>");
-}
-
-function routTwo(request, response) {
-  console.log(request.url);
-  console.log(request.method);
-  response.send("<h2>Astrology page</h2>");
-}*/
