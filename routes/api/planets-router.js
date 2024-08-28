@@ -6,18 +6,16 @@ import { httpError } from "../../helpers/index.js";
 
 const planetRouter = express.Router();
 
-planetRouter.get("/", async (req, res) => {
+planetRouter.get("/", async (req, res, next) => {
   try {
     const result = await planetServices.getAllPlanets();
     res.json(result);
   } catch (error) {
-    res.status(500).json({
-      message: "Server error",
-    });
+    next(error);
   }
 });
 
-planetRouter.get("/:id", async (req, res) => {
+planetRouter.get("/:id", async (req, res, next) => {
   try {
     const { id } = req.params;
     const result = await planetServices.getAllPlanetsById(id);
@@ -26,24 +24,8 @@ planetRouter.get("/:id", async (req, res) => {
     }
     res.json(result);
   } catch (error) {
-    res.status(500).json({
-      message: "Server error",
-    });
+    next(error);
   }
 });
-
-/*
-planetRouter.post("/", (req, res) => {
-  res.json(planets[0]);
-});
-
-planetRouter.put("/:id", (req, res) => {
-  res.json(planets[0]);
-});
-
-planetRouter.delete("/:id", (req, res) => {
-  res.json(planets[0]);
-});
-*/
 
 export default planetRouter;
