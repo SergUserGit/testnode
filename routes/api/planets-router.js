@@ -20,7 +20,9 @@ planetRouter.get("/:id", async (req, res, next) => {
     const { id } = req.params;
     const result = await planetServices.getAllPlanetsById(id);
     if (!result) {
-      throw httpError(404, `Planet with ${id} not found`);
+      return res.status(404).json({
+        message: `Planet with ${id} not found`,
+      });
     }
     res.json(result);
   } catch (error) {
