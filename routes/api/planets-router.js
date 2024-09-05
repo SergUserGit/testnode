@@ -1,33 +1,12 @@
 import express from "express";
-
-import * as planetServices from "../../models/planets/index.js";
-
-import { httpError } from "../../helpers/index.js";
+import funcObject from "../api/controllers.js";
 
 const planetRouter = express.Router();
 
-planetRouter.get("/", async (req, res, next) => {
-  try {
-    const result = await planetServices.getAllPlanets();
-    res.json(result);
-  } catch (error) {
-    next(error);
-  }
-});
-
-planetRouter.get("/:id", async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const result = await planetServices.getAllPlanetsById(id);
-    if (!result) {
-      return res.status(404).json({
-        message: `Planet with ${id} not found`,
-      });
-    }
-    res.json(result);
-  } catch (error) {
-    next(error);
-  }
-});
+planetRouter.get("/", funcObject.getElements);
+planetRouter.get("/:id", funcObject.getElementById);
+planetRouter.post("/", funcObject.addElement);
+planetRouter.delete("/:id", funcObject.deleteElementById);
+planetRouter.put("/:id", funcObject.updateElementById);
 
 export default planetRouter;
